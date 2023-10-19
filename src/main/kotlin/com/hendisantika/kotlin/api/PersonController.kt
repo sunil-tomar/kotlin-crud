@@ -28,20 +28,20 @@ class PersonController {
         return personService!!.save(Person)
     }
 
-    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.PUT))
+    @RequestMapping(value = arrayOf("{id}"), method = arrayOf(RequestMethod.PUT))
     @ResponseStatus(HttpStatus.OK)
     fun updatePerson(@PathVariable("id") id: Long, @Validated @RequestBody person: Person): Person {
         person.id = id
         return personService!!.save(person)
     }
 
-    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.DELETE))
+    @RequestMapping(value = arrayOf("{id}"), method = arrayOf(RequestMethod.DELETE))
     @ResponseStatus(HttpStatus.OK)
     fun deletePerson(@PathVariable("id") id: Long?) {
         personService!!.delete(id)
     }
 
-    @RequestMapping(value = "{id}", method = arrayOf(RequestMethod.GET))
+    @RequestMapping(value = arrayOf("{id}"), method = arrayOf(RequestMethod.GET))
     fun getPerson(@PathVariable("id") id: Long?): Person {
         return personService!!.find(id)
     }
