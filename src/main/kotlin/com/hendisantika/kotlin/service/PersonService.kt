@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import javax.persistence.EntityNotFoundException
 
 
 /**
@@ -19,7 +20,7 @@ class PersonService {
     internal var personRepository: PersonRepository? = null
 
     fun findAll(): List<Person> {
-        return personRepository!!.findAll(Sort(Sort.Direction.ASC, "id"))
+        return personRepository!!.findAll(Sort.by(Sort.Direction.ASC, "id"))
     }
 
     fun save(person: Person): Person {
@@ -27,10 +28,10 @@ class PersonService {
     }
 
     fun delete(id: Long?) {
-        personRepository!!.delete(id)
+        personRepository!!.deleteById(id)
     }
 
     fun find(id: Long?): Person {
-        return personRepository!!.findOne(id)
+        return personRepository!!.findById(id).orElseThrow { EntityNotFoundException("Person with id $id not found") }
     }
 }
